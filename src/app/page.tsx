@@ -49,8 +49,7 @@ export default function HomePage() {
 
   return(
     <>
-    {active ? (
-        <div className={`w-full h-screen relative bg-[#0e100f2f] ${!Animated ? "overflow-hidden" : "" }`}>
+        <div className={`w-full h-screen relative bg-[#0e100f2f] ${active ? "" : "translate-x-[300px] transition-all duration-300 ease-linear overflow-hidden scale-80"}  ${!Animated ? "overflow-hidden" : "" }`}>
           {Animated ? (<NavBar animated={Animated} Active={setActive}  />): (<div></div>)}
           {Set && (
             <div className= {`w-full h-screen bg-[#0E100F] flex justify-center items-center absolute top-0 left-0 z-[110] ${Animated ? "slide-up" :"opacity-0"} ${!Set ? "opacity-0" : "opacity-100"} `}>
@@ -98,9 +97,6 @@ export default function HomePage() {
                 </div>
               </section>
           </div>
-    ) : (
-      <div>NOTHING</div>
-    )}
     </>
   );
 }
