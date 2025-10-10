@@ -3,6 +3,7 @@
 import { useState , useEffect } from "react";
 import NavBar from "./componenets/navbar";
 import { ScrollHook } from "./hooks/smoothscroll";
+import Link from "next/link";
 
 
 
@@ -16,7 +17,7 @@ export default function HomePage() {
     return () => clearTimeout (t)
   })
   // Slide Up anim
-  const [Animated , setAnimated] = useState(false)
+  const [Animated, setAnimated] = useState(false)
   useEffect(() => {
     const handleLoad = () => {
       const t = setTimeout(() => setAnimated(true), 1000);
@@ -35,6 +36,7 @@ export default function HomePage() {
 
   const [count, setCount] = useState(0);
   // Background lines
+
   useEffect(() => {
     const gap = 32; // px, distanța între linii
     const availableWidth = window.innerWidth; // Width 100%
@@ -43,14 +45,38 @@ export default function HomePage() {
   }, []);
   const items = Array.from({ length: count });
 
-
   // DE FACUT CAND AI CHEF (SOON)
   const [active , setActive] = useState(true)
 
   return(
     <>
-        <div className={`w-full h-screen relative bg-[#0e100f2f] ${active ? "" : "translate-x-[300px] transition-all duration-300 ease-linear overflow-hidden scale-80"}  ${!Animated ? "overflow-hidden" : "" }`}>
-          {Animated ? (<NavBar animated={Animated} Active={setActive}  />): (<div></div>)}
+    {!active && (
+        // NavBar menu  
+        <div className="bg-[#] w-full h-screen absolute top-0 left-0 p-10 ">
+          <div className="w-10 h-10 rounded-full backdrop-blur-2xl bg-white/20 flex items-center justify-center">
+            <svg onClick={(() =>  setActive(prev => !prev))} xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#FFFFE3" d="M8 19a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3a1 1 0 0 0 0-2a5 5 0 0 0-5 5v8a5 5 0 0 0 5 5a1 1 0 0 0 0-2Zm7.71-3.29a1 1 0 0 0 0-1.42L13.41 12l2.3-2.29a1 1 0 0 0-1.42-1.42L12 10.59l-2.29-2.3a1 1 0 0 0-1.42 1.42l2.3 2.29l-2.3 2.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l2.29-2.3l2.29 2.3a1 1 0 0 0 1.42 0ZM16 3a1 1 0 0 0 0 2a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3a1 1 0 0 0 0 2a5 5 0 0 0 5-5V8a5 5 0 0 0-5-5Z"/></svg>
+          </div>
+            <ul className="flex flex-col gap-5 items-start justify-center z-50 w-full h-full text-white">
+                    <li className="hover:-translate-x-[2px] hover:-translate-y-[1px] duration-200 ">
+                        <Link href="#" className=" font-medium hover:text-[#A374FF] cursor-pointer transition-colors text-xs">Home</Link>
+                    </li>
+                    <li className="hover:-translate-x-[2px] hover:-translate-y-[1px] duration-200">
+                        <Link href="#" className=" font-medium hover:text-[#17F1D1] cursor-pointer transition-colors text-xs">Plans</Link>
+                    </li>
+                    <li className="hover:-translate-x-[1px] hover:-translate-y-[2px] duration-200">
+                        <Link href="#" className=" font-medium hover:text-[#FFD074] cursor-pointer transition-colors text-xs">Signals</Link>
+                    </li>
+                    <li className=" hover:-translate-x-[2px] hover:-translate-y-[1px] duration-200">
+                        <Link href="#" className=" font-medium hover:text-[#A374FF] cursor-pointer transition-colors text-xs">Contact</Link>
+                    </li>
+                </ul>
+        </div>
+      )} 
+      {/* Aici ai Animatia de NAVABAR pe tlf */}
+        <div className={` w-full h-screen relative bg-[#0e100f2f] ${active ? "" : "menuSlide translate-x-[250px] duration-300 rounded-2xl transition-all overflow-auto z-[100]"}  ${!Animated ? "overflow-hidden" : "" }`}>
+          <button onClick={(() => setActive(true))}  className={`${active? "hidden" : "absolute top-0 left-0 w-full h-full z-50"}`}>
+          </button>
+          {Animated ? (<NavBar animated={Animated} Active={setActive}  />): (<></>)}
           {Set && (
             <div className= {`w-full h-screen bg-[#0E100F] flex justify-center items-center absolute top-0 left-0 z-[110] ${Animated ? "slide-up" :"opacity-0"} ${!Set ? "opacity-0" : "opacity-100"} `}>
               <svg width="312" height="314" viewBox="0 0 312 314" fill="none" xmlns="http://www.w3.org/2000/svg" className="spin_log scale-90">

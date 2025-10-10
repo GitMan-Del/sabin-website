@@ -1,7 +1,7 @@
 "use client"
 import { useEffect } from "react"
 import Lenis from '@studio-freight/lenis';
-
+// Asta e inizializare pentru SMOOTH scroll
 export const ScrollHook = () => {
 
     useEffect(() => {

@@ -2,11 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-
-
 type NavBarProps = {
     animated: boolean;
-    Active: (value: boolean) => void
+    Active: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function NavBar({ animated , Active }: NavBarProps) {
@@ -26,15 +24,12 @@ export default function NavBar({ animated , Active }: NavBarProps) {
         return () => {
             document.removeEventListener("scroll" , HandleScroll)
         };
-        
     }, []); 
-
     // SISTEM DE TEST
-
     return(
-        <div className={` ${Scroll ? " bg-transparent backdrop-blur-none " : "bg-black/10 backdrop-blur-xs"} w-full h-20 border-b border-[#0E100F] fixed inset-0 text-white z-[100] ${animated ? "navbar-anim" : " "}`}>
+        <div className={` ${Scroll ? "bg-transparent backdrop-blur-none " : "bg-black/10 backdrop-blur-xs"} w-full h-20 border-b border-[#0E100F] fixed inset-0 text-white z-[100] ${animated ? "navbar-anim" : " "}`}>
             <div className="w-full h-full py-3 px-10 flex flex-row items-center justify-between">
-                <button onClick={(() => Active(false))}  className="md:hidden w-13 h-13 bg-[#0E100F]/20 border border-[#1E1E1E] rounded-full flex items-center justify-center hover:cursor-pointer">
+                <button onClick={(() => Active(prev => !prev))}  className="md:hidden w-13 h-13 bg-[#0E100F]/20 border border-[#1E1E1E] rounded-full flex items-center justify-center hover:cursor-pointer">
                     <svg width="30" height="30" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="21" height="4" rx="2" fill="#A374FF"/>
                     <rect y="6" width="15" height="4" rx="2" fill="#17F1D1"/>
