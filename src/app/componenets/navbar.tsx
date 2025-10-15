@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -14,12 +16,10 @@ export default function NavBar({ animated , Active }: NavBarProps) {
     useEffect(() => {
         const HandleScroll = () => {
             isScroll(false)
-            console.log("Sa pus pe flase")
             document.removeEventListener("scroll", HandleScroll);
         };
         
         document.addEventListener("scroll" , HandleScroll);
-        console.log("Inca nu stiu ce face")
 
         return () => {
             document.removeEventListener("scroll" , HandleScroll)
