@@ -62,7 +62,7 @@ export default function HomePage() {
 
   // Section Pop-up cod
   const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(null);
-  const [scrollLocked, setScrollLocked] = useState(false);
+  
 
   useEffect(() => {
     let LastScrollY = window.scrollY;
@@ -72,11 +72,11 @@ export default function HomePage() {
 
       if (currentScrollY > LastScrollY) {
         setScrollDirection("down");
-        setScrollLocked(true);
+       
       }
       else if (LastScrollY > currentScrollY) {
         setScrollDirection("up")
-         setScrollLocked(false);
+        
       }
       LastScrollY = currentScrollY;
     };
@@ -84,14 +84,6 @@ export default function HomePage() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  //  useEffect(() => {
-  //   if (scrollLocked) {
-  //     document.body.style.overflow = "relative";
-  //   } else {
-  //     document.body.style.overflow = "block";
-  //   }
-  // }, [scrollLocked]);
 
   return (
     <>
