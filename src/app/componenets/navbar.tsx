@@ -29,7 +29,7 @@ export default function NavBar({ animated , Active }: NavBarProps) {
     return(
         <div className={` ${Scroll ? "bg-transparent backdrop-blur-none " : "bg-black/10 backdrop-blur-xs"} w-full h-20 border-b border-[#0E100F] fixed inset-0 text-white z-[100] ${animated ? "navbar-anim" : " "}`}>
             <div className="w-full h-full py-3 px-10 flex flex-row items-center justify-between">
-                <div onClick={(() => Active(prev => !prev))}  className="md:hidden w-13 h-13 bg-[#0E100F]/20 border border-[#1E1E1E] rounded-full flex items-center justify-center hover:cursor-pointer">
+                <div onClick={(() => Active(prev => !prev))}  className="sm:hidden w-13 h-13 bg-[#0E100F]/20 border border-[#1E1E1E] rounded-full flex items-center justify-center hover:cursor-pointer">
                     <svg width="30" height="30" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="21" height="4" rx="2" fill="#A374FF"/>
                     <rect y="6" width="15" height="4" rx="2" fill="#17F1D1"/>
@@ -37,8 +37,8 @@ export default function NavBar({ animated , Active }: NavBarProps) {
                     </svg>
                 </div>
                 
-                <Image  src={image} alt="Logo" width={100} height={35} className="hidden md:block object-fill w-[100px] h-[35px]"/>
-                <ul className="hidden  md:flex flex-row gap-8 items-center justify-center">
+                <Image  src={image} alt="Logo" width={100} height={35} className="hidden sm:block object-fill w-[100px] h-[35px]"/>
+                <ul className="hidden  sm:flex flex-row gap-8 items-center justify-center">
                     <li className="hover:-translate-x-[2px] hover:-translate-y-[1px] duration-200">
                         <Link href="#" className=" font-medium hover:text-[#A374FF] cursor-pointer transition-colors text-xs">Home</Link>
                     </li>
@@ -53,7 +53,7 @@ export default function NavBar({ animated , Active }: NavBarProps) {
                     </li>
                 </ul>
 
-                <button className="hidden md:block bg-translate border border-[#1E1E1E] px-6 py-2 text-xs text-[#FFFFE3] rounded-xl hover:-rotate-1 hover:scale-105 hover:-translate-x-[2px] hover:-translate-y-[1px] hover:cursor-pointer transition-all duration-200">Get Started</button>
+                <button className="block bg-translate border border-[#1E1E1E] px-6 py-2 text-xs text-[#FFFFE3] rounded-xl hover:-rotate-1 hover:scale-105 hover:-translate-x-[2px] hover:-translate-y-[1px] hover:cursor-pointer transition-all duration-200">Get Started</button>
             </div>
         </div>
     );

@@ -4,20 +4,24 @@ import { useState, useEffect } from "react";
 import NavBar from "./componenets/navbar";
 import { ScrollHook } from "./hooks/smoothscroll";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   ScrollHook();
 
-  //  Loading Screen
+  // Loading Screen
   const [Set, isSet] = useState(true);
   useEffect(() => {
+    // Ascunde loading dupa 1020ms
     const t = setTimeout(() => isSet(false), 1020);
     return () => clearTimeout(t);
-  });
+  }, []);
+
   // Slide Up anim
   const [Animated, setAnimated] = useState(false);
   useEffect(() => {
     const handleLoad = () => {
+      // Activeaza animatia dupa 1000ms
       const t = setTimeout(() => setAnimated(true), 1000);
       return () => clearTimeout(t);
     };
@@ -28,62 +32,33 @@ export default function HomePage() {
       window.addEventListener("load", handleLoad);
     }
 
-    return () => {
-      window.removeEventListener("load", handleLoad);
-    };
-  });
-
-  const [count, setCount] = useState(0);
+    return () => window.removeEventListener("load", handleLoad);
+  }, []);
 
   // Background lines
+  const [count, setCount] = useState(0);
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const gap = 32;
+
     const updateLines = () => {
+      // Calculeaza numarul de linii pe latimea ecranului
       const availableWidth = window.innerWidth;
       const numItems = Math.floor(availableWidth / gap);
       setCount(numItems);
     };
 
-    updateLines(); // Initial call
+    updateLines(); // apel initial
     window.addEventListener("resize", updateLines);
 
-    return () => {
-      window.removeEventListener("resize", updateLines);
-    };
+    return () => window.removeEventListener("resize", updateLines);
   }, []);
 
   const lines = Array.from({ length: count });
 
-  //Meniu Navabar
+  // Meniu Navbar
   const [active, setActive] = useState(true);
-
-
-  // Section Pop-up cod
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(null);
-  
-
-  useEffect(() => {
-    let LastScrollY = window.scrollY;
-  
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-
-      if (currentScrollY > LastScrollY) {
-        setScrollDirection("down");
-       
-      }
-      else if (LastScrollY > currentScrollY) {
-        setScrollDirection("up")
-        
-      }
-      LastScrollY = currentScrollY;
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
@@ -146,7 +121,9 @@ export default function HomePage() {
           active
             ? ""
             : "menuSlide translate-x-[250px] duration-300 rounded-2xl transition-all overflow-auto z-[100]"
-        }  ${!Animated ? "overflow-hidden" : ""}`}
+        }  ${!Animated ? "overflow-hidden" : ""}
+       
+          `}
       >
         <button
           onClick={() => setActive(true)}
@@ -184,7 +161,9 @@ export default function HomePage() {
             </svg>
           </div>
         )}
-        <div className={`w-full h-[110vh] bg-gradient-to-l from-[#000000] via-[#0E100F]/10 to-[#000000] flex items-center justify-center`}>
+        <div
+          className={`w-full h-[105vh] bg-gradient-to-l from-[#000000] via-[#0E100F]/10 to-[#000000] flex items-center justify-center`}
+        >
           <div className="absolute inset-0 w-full h-full pointer-events-none z-0 flex flex-row">
             {lines.map((_, index) => (
               <div
@@ -240,15 +219,79 @@ export default function HomePage() {
           </div>
         </div>
 
-            {scrollDirection && (
-              <div className={`w-full h-screen bg-[#0e100f] flex items-center justify-center transition-all duration-500 fixed top-0 left-0 z-[99] ${
-              scrollDirection === "up"
-            ? "translate-y-0 animate-slideDown"
-            : "translate-y-0 animate-slideUp"
-        }`}>
-                <h2 className="text-3xl font-semibold">TestTestTestTest</h2>
+        <section className="w-full text-[#FFFFE3] h-[90vh] lg:p-20 px-5 py-30">
+          <div className="flex w-full flex-col md:flex-row gap-3 mb-5 justify-between lg:items-end items-center">
+            <h2 className="font-semibold md:text-5xl text-4xl max-w-[400px]">
+              <span className="text-[#A374FF]">Clienți mulțumiți,</span> <br />{" "}
+              rezultate dovedite
+            </h2>
+            <p className=" md:max-w-[20%] text-center md:text-right text-[#D0D0D0] md:text-md text-xs">
+              Peste 500 de clienți au ales serviciile noastre și 95% dintre ei
+              sunt complet satisfăcuți. Descoperă ce spun despre noi.
+            </p>
+          </div>
+
+          <div className="w-full h-full flex md:flex-row flex-col gap-5 ">
+            {/* Stânga: Grid 4x6 */}
+            <div className="grid grid-cols-4 grid-rows-6 gap-5 flex-1 min-h-[500px]">
+              {/* 1: Partners (2x2) - col 1-2, row 1-2 */}
+              <div className="col-span-2 row-auto bg-[#151716]/30 border border-[#151716] rounded-2xl flex items-center justify-between p-3  ">
+                <div className="flex items-center gap-2">
+                <Image
+                  src="/og-image.png"
+                  width={20}
+                  height={20}
+                  alt="Partner 1"
+                  className="rounded-full"
+                />
+                <Image
+                  src="/og-image.png"
+                  width={40}
+                  height={40}
+                  alt="Partner 2"
+                  className="rounded-full"
+                />
+                <Image
+                  src="/og-image.png"
+                  width={50}
+                  height={50}
+                  alt="Partner 3"
+                  className="rounded-full"
+                />
+                <Image
+                  src="/og-image.png"
+                  width={30}
+                  height={30}
+                  alt="Partner 4"
+                  className="rounded-full"
+                />
+                  </div>
+
+                <p className="uppercase text-xs text-gray-400">40+ Parteners</p>
               </div>
-          )}
+
+              {/* 2: Tall content (2x4) - col 3-4, row 1-4 */}
+              <div className="col-span-2 row-span-5 col-start-3 row-start-1 bg-[#151716]/30 border border-[#151716] rounded-2xl p-4">
+                <p className="text-white">Tall Content (2)</p>
+              </div>
+
+              {/* 3: Bottom right (2x2) - col 3-4, row 5-6 */}
+              <div className="col-span-2 row-span-1 col-start-3 row-start-0 bg-[#151716]/30 border border-[#151716] rounded-2xl p-4">
+                <p className="text-white">Bottom Right (3)</p>
+              </div>
+
+              {/* 4: Left bottom (2x4) - col 1-2, row 3-6 */}
+              <div className="col-span-2 row-span-5 col-start-1 row-start-2 bg-[#151716]/30 border border-[#151716] rounded-2xl p-4">
+                <p className="text-white">Left Bottom (4)</p>
+              </div>
+            </div>
+
+            {/* Dreapta: Amber block */}
+            <div className="flex-1 bg-amber-500 rounded-2xl"></div>
+          </div>
+        </section>
+
+        <section className="h-screen w-full"></section>
       </div>
     </>
   );

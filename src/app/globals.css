@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
-* {
+/* * {
   scrollbar-width: none;    
-}
+} */
 
-::-webkit-scrollbar{
+/* ::-webkit-scrollbar{
   width: none;
-}
+} */
 
 html,body {
   scroll-snap-type: y mandatory;
